@@ -77,16 +77,24 @@
                 <executions>
                     <execution>
                         <id>start-container</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>deploy-archiver</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>deploy</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>deploy</id>
+                        <id>undeploy-and-stop</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>undeploy</goal>
+                            <goal>stop</goal>
                         </goals>
                     </execution>
                 </executions>
