@@ -19,7 +19,9 @@ package org.jboss.arquillian.maven.test;
 
 import static org.jboss.arquillian.maven.test.Utils.read;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Properties;
 
 import junit.framework.Assert;
 
@@ -36,7 +38,15 @@ public class MySimpleServletITCase
    @Test
    public void shouldBeAbleToCallServlet() throws Exception 
    {
-      String result = read(new URL("http://localhost:9595/arquillian-maven/hello"));
+      String url = "http://127.0.0.1:" + servletPort() + "/arquillian-maven/hello";
+      String result = read(new URL(url));
       Assert.assertEquals(MySimpleServlet.WELCOME_MSG, result);
+   }
+
+   private String servletPort() throws IOException
+   {
+      Properties properties = new Properties();
+      properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("test.properties"));
+      return properties.getProperty("servlet.port");
    }
 }

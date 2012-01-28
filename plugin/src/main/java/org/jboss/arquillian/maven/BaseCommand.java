@@ -199,7 +199,7 @@ abstract class BaseCommand extends AbstractMojo
       }
    }
 
-   private void validateInput() 
+   void validateInput()
    {
       File deploymentFile = file();
       if (!deploymentFile.exists())
@@ -228,7 +228,7 @@ abstract class BaseCommand extends AbstractMojo
       }
    }
 
-   Manager startManager(Class<?>... extensions)
+   private Manager startManager(Class<?>... extensions)
    {
       Manager manager = getFromContext(Manager.class);
       if (isStarted(manager))
@@ -244,7 +244,7 @@ abstract class BaseCommand extends AbstractMojo
       return manager != null;
    }
 
-   private Manager startNewManager(Class<?>... extensions)
+   Manager startNewManager(Class<?>... extensions)
    {
       Manager manager = ManagerBuilder.from().extensions(extensions).create();
       manager.start();

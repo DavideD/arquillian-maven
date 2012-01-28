@@ -19,6 +19,7 @@ package org.jboss.arquillian.maven;
 
 import org.jboss.arquillian.container.spi.Container;
 import org.jboss.arquillian.container.spi.client.container.DeploymentException;
+import org.jboss.arquillian.container.spi.client.container.LifecycleException;
 import org.jboss.arquillian.core.spi.Manager;
 import org.jboss.shrinkwrap.api.Archive;
 
@@ -42,11 +43,17 @@ public final class Deploy extends BaseCommand
       return "deploy";
    }
 
+   @Override
+   Manager startNewManager(Class<?>... extensions)
+   {
+      throw new RuntimeException("Container not started. The container must be started before deploy. If the container is remote sue \"arquillian:deployRemote\""); 
+   }
+
    /* (non-Javadoc)
     * @see org.jboss.arquillian.maven.BaseCommand#perform(org.jboss.arquillian.core.spi.Manager, org.jboss.arquillian.container.spi.Container, org.jboss.shrinkwrap.api.Archive)
     */
    @Override
-   public void perform(Manager manager, Container container) throws DeploymentException
+   public void perform(final Manager manager, final Container container) throws DeploymentException, LifecycleException
    {
       Archive<?> deployment = createDeployment();
       getLog().info("Perform deploy on " + container.getName() + " of deployment " + deployment.getName());

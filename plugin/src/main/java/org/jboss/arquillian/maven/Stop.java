@@ -41,6 +41,15 @@ public final class Stop extends BaseCommand
    }
 
    /* (non-Javadoc)
+    * @see org.jboss.arquillian.maven.BaseCommand#validateInput()
+    */
+   @Override
+   void validateInput()
+   {
+      // No need to validate when stopping
+   }
+
+   /* (non-Javadoc)
     * @see org.jboss.arquillian.maven.BaseCommand#perform(org.jboss.arquillian.core.spi.Manager, org.jboss.arquillian.container.spi.Container)
     */
    @Override

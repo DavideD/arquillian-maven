@@ -22,7 +22,7 @@ import org.jboss.arquillian.container.spi.client.container.LifecycleException;
 import org.jboss.arquillian.core.spi.Manager;
 
 /**
- * Start to a Container
+ * Start a Container
  *
  * @goal start
  *
@@ -39,6 +39,15 @@ public final class Start extends BaseCommand
    public String goal()
    {
       return "start";
+   }
+
+   /* (non-Javadoc)
+    * @see org.jboss.arquillian.maven.BaseCommand#validateInput()
+    */
+   @Override
+   void validateInput()
+   {
+      // No need to validate when starting
    }
 
    /* (non-Javadoc)
