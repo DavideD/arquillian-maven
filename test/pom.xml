@@ -16,7 +16,7 @@
 
     <properties>
         <version.arquillian_jetty>1.0.0.CR1</version.arquillian_jetty>
-        <version.arquillian_jbossas7>7.0.2.Final</version.arquillian_jbossas7>
+        <version.arquillian_jbossas7>7.1.0.Final</version.arquillian_jbossas7>
         <version.shrinkwrap_descriptors>1.1.0-alpha-2</version.shrinkwrap_descriptors>
         <version.jetty>8.0.0.M3</version.jetty>
     </properties>
@@ -74,33 +74,12 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>unpack</id>
-                            <phase>initialize</phase>
-                            <goals>
-                                <goal>unpack</goal>
-                            </goals>
-                            <configuration>
-                                <artifactItems>
-                                    <artifactItem>
-                                        <groupId>org.jboss.as</groupId>
-                                        <artifactId>jboss-as-dist</artifactId>
-                                        <version>${version.arquillian_jbossas7}</version>
-                                        <type>zip</type>
-                                        <overWrite>false</overWrite>
-                                        <outputDirectory>${project.build.directory}</outputDirectory>
-                                    </artifactItem>
-                                </artifactItems>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
                     <groupId>org.jboss.arquillian.maven</groupId>
                     <artifactId>arquillian-maven-plugin</artifactId>
                     <version>${project.version}</version>
+					<configuration>
+						<containerVersion>${container.version}</containerVersion>
+					</configuration>
                     <executions>
                         <execution>
                             <id>deploy-archive</id>
@@ -133,6 +112,9 @@
             <plugin>
                 <groupId>org.jboss.arquillian.maven</groupId>
                 <artifactId>arquillian-maven-plugin</artifactId>
+                <configuration>
+                	
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -193,10 +175,25 @@
             </dependencies>
         </profile>
 
+		<profile>
+			<id>tomcat</id>
+			<properties>
+				<container.version>6.0.35</container.version>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-tomcat-managed-6</artifactId>
+					<version>1.0.0.CR2</version>
+				</dependency>
+			</dependencies>
+		</profile>
+
         <profile>
             <id>jbossas-7-managed</id>
             <properties>
                 <jboss.home>${project.build.directory}/jboss-as-${version.arquillian_jbossas7}</jboss.home>
+                <container.version>${version.arquillian_jbossas7}</container.version>
             </properties>
             <build>
                 <resources>
@@ -205,11 +202,6 @@
                         <filtering>true</filtering>
                     </resource>
                 </resources>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
-                </plugins>
             </build>
 
             <dependencies>

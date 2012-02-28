@@ -22,7 +22,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -214,7 +216,7 @@ abstract class BaseCommand extends AbstractMojo
       }
    }
 
-   private void loadContainer(Class<?>... extensions) throws Exception
+   void loadContainer(Class<?>... extensions) throws Exception
    {
       Manager manager = startManager(extensions);
       try
@@ -335,6 +337,9 @@ abstract class BaseCommand extends AbstractMojo
       }
    }
 
+   Set<Artifact> getDependencies() {
+	   return  project.getDependencyArtifacts();
+   }
    @SuppressWarnings("unchecked")
    <T> T getFromContext(Class<T> key) {
       return (T) getPluginContext().get(key);
