@@ -23,12 +23,12 @@ import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.protocol.servlet.arq514hack.descriptors.api.web.WebAppDescriptor;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +49,7 @@ public class MySimpleServletTestCase
                .addClass(MySimpleServlet.class)
                .setWebXML(new StringAsset(
                      Descriptors.create(WebAppDescriptor.class)
-                        .servlet(MySimpleServlet.class, "/*")
+                        .servlet(MySimpleServlet.class.getName(), "/*")
                         .exportAsString()
                ));
    }
