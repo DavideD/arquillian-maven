@@ -16,7 +16,7 @@
 
     <properties>
         <version.arquillian_jetty>1.0.0.CR1</version.arquillian_jetty>
-        <version.arquillian_jbossas7>7.0.2.Final</version.arquillian_jbossas7>
+        <version.arquillian_jbossas7>7.1.1.Final</version.arquillian_jbossas7>
         <version.shrinkwrap_descriptors>1.1.0-alpha-2</version.shrinkwrap_descriptors>
         <version.jetty>8.0.0.M3</version.jetty>
     </properties>
