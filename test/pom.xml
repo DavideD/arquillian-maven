@@ -17,21 +17,8 @@
     <properties>
         <version.arquillian_jetty>1.0.0.CR1</version.arquillian_jetty>
         <version.arquillian_jbossas7>7.0.2.Final</version.arquillian_jbossas7>
-        <version.shrinkwrap_descriptors>2.0.0-alpha-3</version.shrinkwrap_descriptors>
         <version.jetty>8.0.0.M3</version.jetty>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-	        <dependency>
-	            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-	            <artifactId>shrinkwrap-descriptors-bom</artifactId>
-	            <version>${version.shrinkwrap_descriptors}</version>
-	            <scope>import</scope>
-	           <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
