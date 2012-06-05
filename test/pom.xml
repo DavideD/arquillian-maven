@@ -21,6 +21,18 @@
         <version.jetty>8.0.0.M3</version.jetty>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+	        <dependency>
+	            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+	            <artifactId>shrinkwrap-descriptors-bom</artifactId>
+	            <version>${version.shrinkwrap_descriptors}</version>
+	            <scope>import</scope>
+	           <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
@@ -34,19 +46,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-            <artifactId>shrinkwrap-descriptors-bom</artifactId>
-            <version>${version.shrinkwrap_descriptors}</version>
-            <scope>import</scope>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-            <artifactId>shrinkwrap-descriptors-impl-base</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-            <artifactId>shrinkwrap-descriptors-api-base</artifactId>
+            <artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -61,14 +61,6 @@
 
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <configuration>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                        <!-- for some reason the WAR plugin is packaging test scoped resources-->
-                        <packagingExcludes>WEB-INF/lib/shrinkwrap*</packagingExcludes>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
