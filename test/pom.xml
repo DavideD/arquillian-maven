@@ -53,8 +53,6 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <configuration>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
-                        <!-- for some reason the WAR plugin is packaging test scoped resources-->
-                        <packagingExcludes>WEB-INF/lib/shrinkwrap*</packagingExcludes>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -74,34 +72,37 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>unpack</id>
-                            <phase>initialize</phase>
-                            <goals>
-                                <goal>unpack</goal>
-                            </goals>
-                            <configuration>
-                                <artifactItems>
-                                    <artifactItem>
-                                        <groupId>org.jboss.as</groupId>
-                                        <artifactId>jboss-as-dist</artifactId>
-                                        <version>${version.arquillian_jbossas7}</version>
-                                        <type>zip</type>
-                                        <overWrite>false</overWrite>
-                                        <outputDirectory>${project.build.directory}</outputDirectory>
-                                    </artifactItem>
-                                </artifactItems>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
                     <groupId>org.jboss.arquillian.maven</groupId>
                     <artifactId>arquillian-maven-plugin</artifactId>
                     <version>${project.version}</version>
+                    <configuration>
+                        <containers>
+                            <container>
+                                <type>jbossas</type>
+                                <version>4.2.3.GA</version>
+                            </container>
+                            <container>
+                                <type>jbossas</type>
+                                <version>${version.arquillian_jbossas7}</version>
+                            </container>
+                            <container>
+                                <type>tomcat</type>
+                                <version>7.0.27</version>
+                            </container>
+                            <container>
+                                <type>glassfish</type>
+                                <url>http://download.java.net/glassfish/3.1.2/release/glassfish-3.1.2.zip</url>
+                            </container>
+                        </containers>
+                    </configuration>
                     <executions>
+                        <execution>
+                            <id>download-containers</id>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>download</goal>
+                            </goals>
+                        </execution>
                         <execution>
                             <id>deploy-archive</id>
                             <phase>pre-integration-test</phase>
@@ -209,20 +210,9 @@
                         <filtering>true</filtering>
                     </resource>
                 </resources>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
-                </plugins>
             </build>
 
             <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>${version.arquillian_jbossas7}</version>
-                    <scope>test</scope>
-                </dependency>
                 <dependency>
                     <groupId>org.jboss.spec</groupId>
                     <artifactId>jboss-javaee-6.0</artifactId>
